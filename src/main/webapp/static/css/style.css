@@ -1,5 +1,15 @@
-main {
+* {
+    margin: 0;
+    padding: 0;
+}
+
+section {
     margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.row {
+    margin: 0;
 }
 
 .footer-nav-bar {
