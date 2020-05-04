@@ -6,3 +6,6 @@ spring:
   jpa:
     show-sql: true
     generate-ddl: true
+
+  mustache:
+    expose-request-attributes: true
