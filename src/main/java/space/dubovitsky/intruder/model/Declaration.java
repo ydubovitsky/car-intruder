@@ -23,13 +23,17 @@ public class Declaration {
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public Declaration() {
     }
 
-    public Declaration(String name, String address, String carNumber, String description) {
+    public Declaration(String name, String address, String carNumber, String description, Status status) {
         this.name = name;
         this.address = address;
         this.carNumber = carNumber;
         this.description = description;
+        this.status = status;
     }
 }

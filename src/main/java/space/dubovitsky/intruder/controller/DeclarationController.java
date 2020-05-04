@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import space.dubovitsky.intruder.model.Declaration;
+import space.dubovitsky.intruder.model.Status;
 import space.dubovitsky.intruder.service.DeclarationService;
 
 import java.util.List;
@@ -24,7 +25,9 @@ public class DeclarationController {
     @GetMapping("/declaration")
     public String showDeclaration(Model model) {
         List<Declaration> declarationList = declarationService.getDeclarationList();
-        model.addAttribute("declarationList", declarationList);
+        if (declarationList != null) {
+            model.addAttribute("declarationList", declarationList);
+        }
         return "declaration";
     }
 
@@ -34,9 +37,10 @@ public class DeclarationController {
             @RequestParam String address,
             @RequestParam String carNumber,
             @RequestParam String description,
+            @RequestParam String status,
             Model model)
     {
-        Declaration declaration = new Declaration(name, address, carNumber, description);
+        Declaration declaration = new Declaration(name, address, carNumber, description, Status.valueOf(status));
 
         declarationService.saveDeclaration(declaration);
 
