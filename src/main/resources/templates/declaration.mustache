@@ -7,21 +7,21 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
     </head>
-    <body>
-        <form method="post">
-            <input type="text" name="name">
-            <input type="text" name="address">
-            <input type="text" name="carNumber">
-            <input type="text" name="description">
-            <p><input type="radio" name="status" value="ACCEPTED" checked>ACCEPTED<Br>
+        <body>
+            <form method="post">
+                <input type="text" name="name">
+                <input type="text" name="address">
+                <input type="text" name="carNumber">
+                <input type="text" name="description">
+                <input type="radio" name="status" value="ACCEPTED" checked>ACCEPTED<Br>
                 <input type="radio" name="status" value="ACCEPTED">COMPLETED<Br>
                 <input type="radio" name="status" value="ACCEPTED">DECLINE<Br>
-            </p>
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-            <input type="submit">
-        </form>
-        {{#declarationList}}
-            {{name}}
-        {{/declarationList}}
-    </body>
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <input type="submit">
+            </form>
+            {{#declarationList}}
+                {{name}}
+                {{user.username}}
+            {{/declarationList}}
+        </body>
 </html>

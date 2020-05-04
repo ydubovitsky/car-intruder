@@ -14,7 +14,7 @@ import java.util.Collections;
 @Controller
 public class RegistrationController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public RegistrationController(UserService userService) {
@@ -27,7 +27,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(
+    public String registerNewUser(
             User user,
             @RequestParam String username,
             @RequestParam String password)
