@@ -3,6 +3,7 @@ package space.dubovitsky.intruder.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import space.dubovitsky.intruder.model.Declaration;
+import space.dubovitsky.intruder.model.Status;
 import space.dubovitsky.intruder.repositories.DeclarationRepo;
 
 import java.util.List;
@@ -17,13 +18,18 @@ public class DeclarationService {
         this.declarationRepo = declarationRepo;
     }
 
-    public List<Declaration> getDeclarationList() {
+    public List<Declaration> getAllDeclarations() {
         List<Declaration> all = declarationRepo.findAll();
         return all;
     }
 
     public void saveDeclaration(Declaration declaration) {
         declarationRepo.save(declaration);
+    }
+
+    public List<Declaration> declarationsByStatus(Status status) {
+        List<Declaration> byStatus = declarationRepo.findByStatus(status);
+        return byStatus;
     }
 
 }

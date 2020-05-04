@@ -26,7 +26,7 @@ public class DeclarationController {
 
     @GetMapping("/declaration")
     public String showDeclaration(Model model) {
-        List<Declaration> declarationList = declarationService.getDeclarationList();
+        List<Declaration> declarationList = declarationService.getAllDeclarations();
         if (declarationList != null) {
             model.addAttribute("declarationList", declarationList);
         }
@@ -47,9 +47,22 @@ public class DeclarationController {
 
         declarationService.saveDeclaration(declaration);
 
-        List<Declaration> declarationList = declarationService.getDeclarationList();
+        List<Declaration> declarationList = declarationService.getAllDeclarations();
         model.addAttribute("declarationList", declarationList);
         return "declaration";
     }
 
+    @PostMapping("filter")
+    public String filterDeclaration(@RequestParam(required = false, name = "filter") String filter, Model model) {
+        List<Declaration> declarationList;
+
+        if (filter != null) {
+            declarationList = declarationService.declarationsByStatus(Status.valueOf(filter));
+        } else {
+            declarationList = declarationService.getAllDeclarations();
+        }
+
+        model.addAttribute("declarationList", declarationList);
+        return "declaration";
+    }
 }

@@ -7,5 +7,6 @@ spring:
     show-sql: true
     generate-ddl: true
 
-  mustache:
+  freemarker:
     expose-request-attributes: true
+    suffix: .ftl

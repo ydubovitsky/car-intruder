@@ -11,4 +11,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**") //* ** - раздается вся иерархия(директории и поддиректории)
+                .addResourceLocations("classpath:/static/"); //! classpath - корень проекта - main
+    }
 }
