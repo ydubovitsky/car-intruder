@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/intruder
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+    generate-ddl: true
