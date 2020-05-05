@@ -3,7 +3,12 @@
         <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
             <ul id="navbar-list-id" class="topBotomBordersOut navbar-nav mx-auto text-center">
                 <li class="nav-item"><a class="nav-link" href="/declaration">Declaration</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Users</a>
+                <li class="nav-item">
+                    <form action="/user" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                        <button class="nav-link" type="submit">Users List</button>
+                    </form>
+                </li>
                 <li class="nav-item"> <a class="nav-link" href="#">Contact</a>
                 <li class="nav-item">
                     <form id="logout" action="/logout" method="post">
