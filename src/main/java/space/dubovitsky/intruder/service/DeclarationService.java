@@ -1,6 +1,7 @@
 package space.dubovitsky.intruder.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import space.dubovitsky.intruder.model.Declaration;
 import space.dubovitsky.intruder.model.Status;
@@ -19,7 +20,7 @@ public class DeclarationService {
     }
 
     public List<Declaration> getAllDeclarations() {
-        List<Declaration> all = declarationRepo.findAll();
+        List<Declaration> all = declarationRepo.findAll(Sort.by("id"));
         return all;
     }
 

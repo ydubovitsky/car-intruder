@@ -14,10 +14,8 @@ import space.dubovitsky.intruder.model.Status;
 import space.dubovitsky.intruder.model.User;
 import space.dubovitsky.intruder.service.DeclarationService;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class DeclarationController {
@@ -37,6 +35,7 @@ public class DeclarationController {
         List<Declaration> declarationList = declarationService.getAllDeclarations();
         if (declarationList != null) {
             model.addAttribute("declarationList", declarationList);
+            model.addAttribute("declarationStatuses", Status.values());
         }
         return "declaration";
     }
@@ -75,5 +74,16 @@ public class DeclarationController {
 
         model.addAttribute("declarationList", declarationList);
         return "declaration";
+    }
+
+    @PostMapping("/declaration/edit")
+    public String editDeclaration(
+            @RequestParam("id") Declaration declaration,
+            @RequestParam("status") String status)
+    {
+        declaration.setStatus(Status.valueOf(status));
+        declarationService.saveDeclaration(declaration);
+
+        return "redirect:/declaration";
     }
 }

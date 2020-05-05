@@ -1,4 +1,5 @@
 <#import "parts/general.ftl" as general>
+<#include "parts/security.ftl">
 
 <@general.general>
     <div class="container">
@@ -139,6 +140,9 @@
                 <th scope="col">photo</th>
                 <th scope="col">status</th>
                 <th scope="col">Author</th>
+                <#if isAdmin>
+                    <th scope="col">Edit Declaration</th>
+                </#if>
             </tr>
             </thead>
             <tbody>
@@ -151,9 +155,46 @@
                     <td>${dec.description}</td>
                     <#if dec.photo??>
                         <td><img src="/img/${dec.photo}" class="img-thumbnail" alt="no img exists"></td>
+                        <#else>
+                        <td>Sorry.. No image of car accident</td>
                     </#if>
                     <td>${dec.status}</td>
-                    <td>${dec.getUser().username}</td>
+                    <td>${dec.getUser().getUsername()}</td>
+                    <#if isAdmin>
+                        <td>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#flag${dec.id}" aria-expanded="false" aria-controls="collapseExample">
+                                Edit Declaration
+                            </button>
+                        </td>
+                        <td>
+                            <#--        Edit declaration start-->
+                            <div class="collapse" id="flag${dec.id}">
+                                <form method="post" action="/declaration/edit">
+                                    <div class="form-group row">
+                                        <div class="col-sm-2">Roles</div>
+                                        <div class="col-sm-10">
+                                            <#list declarationStatuses as st>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="${st}">
+                                                    <label class="form-check-label" for="exampleRadios1">
+                                                        ${st}
+                                                    </label>
+                                                </div>
+                                            </#list>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                            <input type="hidden" name="id" value="${dec.id}">
+                                            <button type="submit" class="btn btn-primary">Save Change</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <#--        Edit declaration end-->
+                        </td>
+                    </#if>
                 </tr>
             </#list>
             </tbody>
