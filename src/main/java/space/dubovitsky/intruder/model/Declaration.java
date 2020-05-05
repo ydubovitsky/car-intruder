@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "declaration")
 @Getter @Setter
-public class Declaration implements Serializable {
+public class Declaration implements Serializable, AbstractModelWithPhoto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
