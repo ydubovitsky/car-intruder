@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "t_user")
 @Getter @Setter
-public class User implements UserDetails { //! UserDetails - как бы прослойка между Бд и Security
+public class User implements UserDetails, Serializable, AbstractModelWithPhoto { //! UserDetails - как бы прослойка между Бд и Security
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,8 @@ public class User implements UserDetails { //! UserDetails - как бы про�
 
     @OneToMany(mappedBy = "user") //* mappedBy = "user" - имя свойства в классе Declaration
     private List<Declaration> declarations;
+
+    private String photo;
 
     public User() {
     }

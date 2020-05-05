@@ -14,3 +14,4 @@ spring:
 #Путь к фотографиям аварий
 upload:
   path: "C:/Users/user/IdeaProjects/car-intruder/external/car-acident"
+  avatar: "C:/Users/user/IdeaProjects/car-intruder/external/avatar"

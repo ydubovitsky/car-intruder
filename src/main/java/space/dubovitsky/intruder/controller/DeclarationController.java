@@ -50,23 +50,11 @@ public class DeclarationController {
             @RequestParam String description,
             @RequestParam String status,
             @RequestParam("photo") MultipartFile photo,
-            Model model) throws IOException {
+            Model model) throws IOException
+    {
         Declaration declaration = new Declaration(name, address, carNumber, description, Status.valueOf(status), user);
 
-        if (photo != null) {
-            File uploadPhotoDir = new File(photoPath);
-
-            if (!uploadPhotoDir.exists()) {
-                uploadPhotoDir.mkdir(); //* Если не существует директории для загрузки фотографий, создаем ее
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String uniqPhotoName = uuidFile + "." + photo.getOriginalFilename(); //* генерируем новое имя файла
-
-            photo.transferTo(new File(photoPath + "/" + uniqPhotoName));
-
-            declaration.setPhoto(uniqPhotoName);
-        }
+        ControllerUtils.setPhotoToEntity(photo, declaration, photoPath);
 
         declarationService.saveDeclaration(declaration);
 
