@@ -36,6 +36,10 @@ public class User implements UserDetails, Serializable, AbstractModelWithPhoto {
 
     private String photo;
 
+    public boolean isInspector() { //* Является ли пользователь инспектором
+        return roles.contains(Role.INSPECTOR);
+    }
+
     public User() {
     }
 
