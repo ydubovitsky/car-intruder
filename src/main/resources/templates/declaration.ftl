@@ -22,7 +22,7 @@
 
 <#--    Input Declaration form start -->
     <div class="collapse" id="input-declaration-form">
-        <form method="post" action="declaration">
+        <form method="post" action="declaration" enctype="multipart/form-data">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Declaration name</label>
                 <div class="col-sm-10">
@@ -45,6 +45,12 @@
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-10">
                     <input type="text" name="description" class="form-control" placeholder="Description">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="exampleFormControlFile1">Photo of car acident</label>
+                <div class="col-sm-10">
+                    <input type="file" name="photo" class="form-control-file" id="exampleFormControlFile1">
                 </div>
             </div>
             <fieldset class="form-group">
@@ -87,27 +93,27 @@
         <form method="post" action="filter">
             <div class="form-group row">
                 <fieldset class="form-group">
-                        <legend class="col-form-label col-sm-2 pt-0">Status</legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="filter" value="ACCEPTED" checked>
-                                <label class="form-check-label" for="gridRadios1">
-                                    ACCEPTED
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="filter" value="COMPLETED">
-                                <label class="form-check-label" for="gridRadios2">
-                                    COMPLETED
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="filter" value="DECLINE">
-                                <label class="form-check-label" for="gridRadios3">
-                                    DECLINE
-                                </label>
-                            </div>
+                    <legend class="col-form-label col-sm-2 pt-0">Status</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="filter" value="ACCEPTED" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                ACCEPTED
+                            </label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="filter" value="COMPLETED">
+                            <label class="form-check-label" for="gridRadios2">
+                                COMPLETED
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="filter" value="DECLINE">
+                            <label class="form-check-label" for="gridRadios3">
+                                DECLINE
+                            </label>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
             <div class="form-group row">
@@ -130,6 +136,7 @@
                 <th scope="col">address</th>
                 <th scope="col">carNumber</th>
                 <th scope="col">description</th>
+                <th scope="col">photo</th>
                 <th scope="col">status</th>
                 <th scope="col">Author</th>
             </tr>
@@ -142,6 +149,9 @@
                     <td>${dec.address}</td>
                     <td>${dec.carNumber}</td>
                     <td>${dec.description}</td>
+                    <#if dec.photo??>
+                        <td><img src="/img/${dec.photo}" class="img-thumbnail" alt="no img exists"></td>
+                    </#if>
                     <td>${dec.status}</td>
                     <td>${dec.getUser().username}</td>
                 </tr>

@@ -31,6 +31,8 @@ public class Declaration implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String photo;
+
     public Declaration() {
     }
 

@@ -1,21 +1,29 @@
 package space.dubovitsky.intruder.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import space.dubovitsky.intruder.model.Declaration;
 import space.dubovitsky.intruder.model.Status;
 import space.dubovitsky.intruder.model.User;
 import space.dubovitsky.intruder.service.DeclarationService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class DeclarationController {
+
+    @Value("${upload.path}")
+    private String photoPath;
 
     private final DeclarationService declarationService;
 
@@ -41,9 +49,24 @@ public class DeclarationController {
             @RequestParam String carNumber,
             @RequestParam String description,
             @RequestParam String status,
-            Model model)
-    {
+            @RequestParam("photo") MultipartFile photo,
+            Model model) throws IOException {
         Declaration declaration = new Declaration(name, address, carNumber, description, Status.valueOf(status), user);
+
+        if (photo != null) {
+            File uploadPhotoDir = new File(photoPath);
+
+            if (!uploadPhotoDir.exists()) {
+                uploadPhotoDir.mkdir(); //* Если не существует директории для загрузки фотографий, создаем ее
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String uniqPhotoName = uuidFile + "." + photo.getOriginalFilename(); //* генерируем новое имя файла
+
+            photo.transferTo(new File(photoPath + "/" + uniqPhotoName));
+
+            declaration.setPhoto(uniqPhotoName);
+        }
 
         declarationService.saveDeclaration(declaration);
 

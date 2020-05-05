@@ -10,3 +10,7 @@ spring:
   freemarker:
     expose-request-attributes: true
     suffix: .ftl
+
+#Путь к фотографиям аварий
+upload:
+  path: "C:/Users/user/IdeaProjects/car-intruder/external/car-acident"
