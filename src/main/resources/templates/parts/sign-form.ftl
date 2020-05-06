@@ -1,6 +1,11 @@
 <#macro signForm action>
     <div class="simple-login-container">
         <form action="${action}" method="post" enctype="multipart/form-data">
+            <#if message??>
+                <div class="alert alert-primary" role="alert">
+                    ${message}
+                </div>
+            </#if>
             <#if action == "/registration">
                 <h2>Registration From</h2>
             <#else>
@@ -19,7 +24,7 @@
             <#if action == "/registration">
                 <div class="row">
                     <div class="col-md-12 form-group">
-                        <input class="form-control" type="email" name="email" placeholder="Email">
+                        <input class="form-control" type="email" name="email" placeholder="Email@domain.com">
                     </div>
                 </div>
                 <div class="row">

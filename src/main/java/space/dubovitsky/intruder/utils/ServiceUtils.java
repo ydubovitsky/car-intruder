@@ -1,22 +1,20 @@
-package space.dubovitsky.intruder.controller;
+package space.dubovitsky.intruder.utils;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import space.dubovitsky.intruder.model.AbstractModelWithPhoto;
-import space.dubovitsky.intruder.model.User;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-class ControllerUtils {
+public class ServiceUtils {
 
-    static void setPhotoToEntity(
-            @RequestParam MultipartFile photo,
+    public static void setPhotoToEntity(
+            MultipartFile photo,
             AbstractModelWithPhoto user,
             String photoPath) throws IOException
     {
-        if (photo != null) {
+        if (photo != null && photo.getOriginalFilename() != null) {
             File photoDir = new File(photoPath);
 
             if (!photoDir.exists()) {
@@ -30,5 +28,5 @@ class ControllerUtils {
             user.setPhoto(avatarFinalName);
         }
     }
-
 }
+

@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5433/intruder
     username: postgres
     password: root
+
   jpa:
     show-sql: true
     generate-ddl: true
@@ -11,7 +12,21 @@ spring:
     expose-request-attributes: true
     suffix: .ftl
 
-#Путь к фотографиям аварий
+  # Настройки почты
+  mail:
+    host: smtp.yandex.ru
+    username: application.web@yandex.ru
+    password: VdI4k8lxhOJdQ149O7ZT
+    port: 465
+    protocol: smtps
+
+# На какой хост переходить для подтверждения регистрации
+activation:
+  host: "http://localhost:8080"
+
+mail.debug: true
+
+# Путь к фотографиям аварий
 upload:
   path: "C:/Users/user/IdeaProjects/car-intruder/external/car-acident"
   avatar: "C:/Users/user/IdeaProjects/car-intruder/external/avatar"

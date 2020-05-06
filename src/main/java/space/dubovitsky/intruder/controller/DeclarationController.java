@@ -13,6 +13,7 @@ import space.dubovitsky.intruder.model.Declaration;
 import space.dubovitsky.intruder.model.Status;
 import space.dubovitsky.intruder.model.User;
 import space.dubovitsky.intruder.service.DeclarationService;
+import space.dubovitsky.intruder.utils.ServiceUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -53,7 +54,7 @@ public class DeclarationController {
     {
         Declaration declaration = new Declaration(name, address, carNumber, description, Status.valueOf(status), user);
 
-        ControllerUtils.setPhotoToEntity(photo, declaration, photoPath);
+        ServiceUtils.setPhotoToEntity(photo, declaration, photoPath);
 
         declarationService.saveDeclaration(declaration);
 
