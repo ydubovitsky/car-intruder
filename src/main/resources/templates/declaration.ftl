@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="exampleFormControlFile1">Photo of car acident</label>
+                <label class="col-sm-2 col-form-label" for="exampleFormControlFile1">Photo of car accident</label>
                 <div class="col-sm-10">
-                    <input type="file" name="photo" class="form-control-file" id="exampleFormControlFile1">
+                    <input type="file" name="photoAccident" class="form-control-file" id="exampleFormControlFile1">
                 </div>
             </div>
             <fieldset class="form-group">

@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,26 +45,21 @@ public class DeclarationController {
     @PostMapping("/declaration")
     public String addDeclaration(
             @AuthenticationPrincipal User user, //! Получаем пользователя из Spring Security context
-            @RequestParam String name,
-            @RequestParam String address,
-            @RequestParam String carNumber,
-            @RequestParam String description,
-            @RequestParam String status,
-            @RequestParam("photo") MultipartFile photo,
+            @ModelAttribute Declaration declaration,
+            @RequestParam("photoAccident") MultipartFile photoAccident,
             Model model) throws IOException
     {
-        Declaration declaration = new Declaration(name, address, carNumber, description, Status.valueOf(status), user);
-
-        ServiceUtils.setPhotoToEntity(photo, declaration, photoPath);
+        declaration.setUser(user); //* Вручнуя сетаем пользователя из Security контекста
+        ServiceUtils.setPhotoToEntity(photoAccident, declaration, photoPath);
 
         declarationService.saveDeclaration(declaration);
 
         List<Declaration> declarationList = declarationService.getAllDeclarations();
         model.addAttribute("declarationList", declarationList);
-        return "declaration";
+        return "redirect:/declaration";
     }
 
-    @PostMapping("filter")
+    @PostMapping("filter") //! TODO Поправить метод фильтрации
     public String filterDeclaration(@RequestParam(required = false, name = "filter") String filter, Model model) {
         List<Declaration> declarationList;
 
@@ -74,7 +70,7 @@ public class DeclarationController {
         }
 
         model.addAttribute("declarationList", declarationList);
-        return "declaration";
+        return "redirect:/declaration";
     }
 
     @PostMapping("/declaration/edit")
